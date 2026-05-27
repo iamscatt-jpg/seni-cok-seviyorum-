@@ -24,33 +24,30 @@ body{
     overflow: hidden;
 }
 
-/* Ay ve yıldız animasyonu */
+/* Arka planda kalp deseni */
 body::before {
-    content: '';
+    content: '❤️ 💕 💖 💗 💝 ❤️ 💕 💖 ❤️ 💕 💖 💗 💝 ❤️ 💕 ❤️ 💕 💖 💗 ❤️ 💕 💖 ❤️ 💕 💖 💗 💝 ❤️';
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: 
-        radial-gradient(2px 2px at 20% 30%, #eee, rgba(0,0,0,0)),
-        radial-gradient(2px 2px at 60% 70%, #fff, rgba(0,0,0,0)),
-        radial-gradient(1px 1px at 50% 50%, #fff, rgba(0,0,0,0)),
-        radial-gradient(1px 1px at 80% 10%, #fff, rgba(0,0,0,0)),
-        radial-gradient(2px 2px at 90% 60%, #fff, rgba(0,0,0,0)),
-        radial-gradient(1px 1px at 30% 80%, #fff, rgba(0,0,0,0)),
-        radial-gradient(1px 1px at 40% 40%, #fff, rgba(0,0,0,0)),
-        radial-gradient(2px 2px at 70% 20%, #fff, rgba(0,0,0,0));
-    background-repeat: repeat;
-    background-size: 200% 200%;
+    width: 200%;
+    height: 200%;
+    font-size: 4rem;
+    opacity: 0.08;
     pointer-events: none;
-    animation: twinkle 5s infinite;
-    z-index: 1;
+    z-index: 0;
+    word-wrap: break-word;
+    line-height: 1.2;
+    animation: heartWave 20s linear infinite;
 }
 
-@keyframes twinkle {
-    0%, 100% { opacity: 0.3; }
-    50% { opacity: 1; }
+@keyframes heartWave {
+    0% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
 }
 
 /* Ay */
@@ -73,12 +70,13 @@ body::before {
 }
 
 /* Düşen kalpler */
-.heart {
+.falling-heart {
     position: fixed;
     pointer-events: none;
     z-index: 1;
-    font-size: 2rem;
-    opacity: 0.8;
+    font-size: 2.5rem;
+    opacity: 0.6;
+    animation: fall linear forwards;
 }
 
 @keyframes fall {
@@ -96,12 +94,12 @@ body::before {
 }
 
 .card{
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(255, 255, 255, 0.97);
     border-radius:25px;
     padding:40px;
-    box-shadow: 0 20px 60px rgba(0,0,0,.4), 0 0 60px rgba(220, 20, 60, 0.2);
+    box-shadow: 0 20px 60px rgba(0,0,0,.5), 0 0 80px rgba(220, 20, 60, 0.3);
     backdrop-filter: blur(10px);
-    border: 2px solid rgba(220, 20, 60, 0.1);
+    border: 3px solid rgba(220, 20, 60, 0.2);
 }
 
 h1{
@@ -109,7 +107,7 @@ h1{
     color: #dc143c;
     margin-bottom:20px;
     font-size:2.5rem;
-    text-shadow: 0 2px 10px rgba(220, 20, 60, 0.2);
+    text-shadow: 0 2px 10px rgba(220, 20, 60, 0.3);
 }
 
 .heart-title {
@@ -158,20 +156,20 @@ ul li{
     margin:12px 0;
     color:#444;
     position: relative;
-    padding-left: 15px;
+    padding-left: 20px;
 }
 
 ul li::before {
     content: '💕';
     position: absolute;
-    left: -15px;
+    left: 0;
 }
 
 .note{
     line-height:1.8;
     color:#444;
     padding: 20px;
-    background: linear-gradient(135deg, rgba(220, 20, 60, 0.05), rgba(255, 192, 203, 0.05));
+    background: linear-gradient(135deg, rgba(220, 20, 60, 0.08), rgba(255, 192, 203, 0.08));
     border-radius: 10px;
 }
 
@@ -190,12 +188,12 @@ ul li::before {
     border-radius: 25px;
     display: inline-block;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(220, 20, 60, 0.3);
+    box-shadow: 0 4px 15px rgba(220, 20, 60, 0.4);
 }
 
 .song a:hover{
     transform: scale(1.08);
-    box-shadow: 0 6px 25px rgba(220, 20, 60, 0.5);
+    box-shadow: 0 6px 25px rgba(220, 20, 60, 0.6);
 }
 
 .footer{
@@ -226,7 +224,7 @@ ul li::before {
     border-radius: 50%;
     font-size: 30px;
     cursor: pointer;
-    box-shadow: 0 4px 15px rgba(220, 20, 60, 0.4);
+    box-shadow: 0 4px 15px rgba(220, 20, 60, 0.5);
     transition: all 0.3s ease;
     display: flex;
     align-items: center;
@@ -235,7 +233,7 @@ ul li::before {
 
 .music-control:hover {
     transform: scale(1.15);
-    box-shadow: 0 6px 25px rgba(220, 20, 60, 0.6);
+    box-shadow: 0 6px 25px rgba(220, 20, 60, 0.7);
 }
 
 .music-control.playing {
@@ -243,20 +241,21 @@ ul li::before {
 }
 
 @keyframes musicPulse {
-    0%, 100% { box-shadow: 0 4px 15px rgba(220, 20, 60, 0.4); }
-    50% { box-shadow: 0 6px 25px rgba(220, 20, 60, 0.8); }
+    0%, 100% { box-shadow: 0 4px 15px rgba(220, 20, 60, 0.5); }
+    50% { box-shadow: 0 6px 25px rgba(220, 20, 60, 1); }
 }
 
-.volume-display {
+.status-display {
     position: fixed;
-    top: 20px;
-    right: 20px;
+    bottom: 110px;
+    right: 30px;
     z-index: 10;
-    background: rgba(220, 20, 60, 0.8);
+    background: rgba(220, 20, 60, 0.9);
     color: white;
-    padding: 10px 15px;
+    padding: 8px 15px;
     border-radius: 20px;
-    font-size: 14px;
+    font-size: 12px;
+    font-weight: bold;
 }
 
 @media (max-width: 768px) {
@@ -306,8 +305,8 @@ Bu sayfa, hayatımdaki en özel kişi için hazırlandı.
 <h2>Bizim Şarkımız</h2>
 
 <div class="song">
-<a href="https://www.youtube.com/watch?v=r7l0Hc1SJgs" target="_blank">
-🎵 All of Me — John Legend
+<a href="https://www.youtube.com/watch?v=2Vv-BfVoq4g" target="_blank">
+🎵 Perfect — Ed Sheeran (Türkçe Çeşit)
 </a>
 </div>
 
@@ -337,18 +336,12 @@ Gülüşünü görmek, sesini duymak ve seninle konuşmak günümün en güzel a
 
 <!-- Müzik Kontrolü -->
 <button class="music-control" id="musicBtn" title="Müziği Aç/Kapat">🎵</button>
-<div class="volume-display" id="volumeDisplay">Ses: %50</div>
+<div class="status-display" id="statusDisplay">Müzik hazırlanıyor...</div>
 
-<!-- Müzik Oynatıcısı (YouTube Embed) -->
-<iframe id="musicPlayer" 
-    style="display:none;" 
-    width="0" 
-    height="0" 
-    src="https://www.youtube.com/embed/r7l0Hc1SJgs?autoplay=1&controls=0&modestbranding=1&rel=0&fs=0&iv_load_policy=3" 
-    frameborder="0" 
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-    allowfullscreen>
-</iframe>
+<!-- Müzik Oynatıcısı -->
+<audio id="audioPlayer" loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/02/15/audio_d5d0b0b67e.mp3" type="audio/mpeg">
+</audio>
 
 <script>
 // Düşen kalpler efekti
@@ -356,56 +349,67 @@ function createFallingHearts() {
     const hearts = ['❤️', '💕', '💖', '💗', '💝'];
     setInterval(() => {
         const heart = document.createElement('div');
-        heart.className = 'heart';
+        heart.className = 'falling-heart';
         heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
         heart.style.left = Math.random() * 100 + '%';
-        heart.style.animationDuration = (3 + Math.random() * 2) + 's';
-        heart.style.animation = 'fall linear forwards';
+        const duration = 3 + Math.random() * 2;
+        heart.style.animationDuration = duration + 's';
         document.body.appendChild(heart);
         
-        setTimeout(() => heart.remove(), 5000);
-    }, 500);
+        setTimeout(() => heart.remove(), duration * 1000);
+    }, 600);
 }
 
 createFallingHearts();
 
-// Müzik kontrol scripti
+// Müzik kontrol
 const musicBtn = document.getElementById('musicBtn');
-const musicPlayer = document.getElementById('musicPlayer');
-const volumeDisplay = document.getElementById('volumeDisplay');
-let isPlaying = true;
+const audioPlayer = document.getElementById('audioPlayer');
+const statusDisplay = document.getElementById('statusDisplay');
+let isPlaying = false;
 
-// Sayfa yüklendiğinde müzik başlasın (YouTube otomatik oynatma)
+// Sayfa yüklendiğinde müzik başlat
 window.addEventListener('load', function() {
-    musicBtn.classList.add('playing');
+    setTimeout(() => {
+        audioPlayer.volume = 0.5;
+        const playPromise = audioPlayer.play();
+        
+        if (playPromise !== undefined) {
+            playPromise.then(() => {
+                isPlaying = true;
+                musicBtn.classList.add('playing');
+                statusDisplay.textContent = '▶️ Müzik Çalıyor';
+            }).catch(() => {
+                statusDisplay.textContent = '⏸️ Başla (Tıkla)';
+                console.log("Otomatik oynatma engellendi");
+            });
+        }
+    }, 1000);
 });
 
-// Butona tıklandığında müziği aç/kapat
+// Buton tıklaması
 musicBtn.addEventListener('click', function() {
     if (isPlaying) {
-        // Müzik kapanırken efekt
-        musicBtn.classList.remove('playing');
+        audioPlayer.pause();
         isPlaying = false;
-        // YouTube'da otomatik oynatma kesme (postMessage ile)
-        musicPlayer.src = musicPlayer.src.replace('autoplay=1', 'autoplay=0');
+        musicBtn.classList.remove('playing');
+        statusDisplay.textContent = '⏸️ Müzik Durduruldu';
     } else {
-        // Müzik açılırken efekt
-        musicBtn.classList.add('playing');
+        audioPlayer.play();
         isPlaying = true;
-        musicPlayer.src = musicPlayer.src.replace('autoplay=0', 'autoplay=1');
+        musicBtn.classList.add('playing');
+        statusDisplay.textContent = '▶️ Müzik Çalıyor';
     }
 });
 
-// Ses seviyesi gösterimi
-document.addEventListener('keydown', function(e) {
-    if (e.key === '+' || e.key === '=') {
-        // Ses artır
-        volumeDisplay.textContent = 'Ses: 100%';
-        setTimeout(() => {
-            volumeDisplay.textContent = 'Ses: %50';
-        }, 2000);
-    }
+// Müzik bittiğinde yeniden başlat
+audioPlayer.addEventListener('ended', function() {
+    audioPlayer.currentTime = 0;
+    audioPlayer.play();
 });
+
+// Tarayıcı konsolunda müzik durumu
+console.log('❤️ Sayfan yüklendi! Müzik otomatik başlayacak.');
 </script>
 
 </body>

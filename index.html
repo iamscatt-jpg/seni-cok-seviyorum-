@@ -72,6 +72,22 @@ body::before {
     50% { box-shadow: 0 0 100px rgba(255, 255, 255, 0.5); }
 }
 
+/* Düşen kalpler */
+.heart {
+    position: fixed;
+    pointer-events: none;
+    z-index: 1;
+    font-size: 2rem;
+    opacity: 0.8;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
 .container{
     width:100%;
     max-width:850px;
@@ -83,22 +99,43 @@ body::before {
     background: rgba(255, 255, 255, 0.95);
     border-radius:25px;
     padding:40px;
-    box-shadow: 0 20px 60px rgba(0,0,0,.4), 0 0 60px rgba(147, 112, 219, 0.2);
+    box-shadow: 0 20px 60px rgba(0,0,0,.4), 0 0 60px rgba(220, 20, 60, 0.2);
     backdrop-filter: blur(10px);
+    border: 2px solid rgba(220, 20, 60, 0.1);
 }
 
 h1{
     text-align:center;
-    color: #6a5acd;
+    color: #dc143c;
     margin-bottom:20px;
     font-size:2.5rem;
-    text-shadow: 0 2px 10px rgba(106, 90, 205, 0.2);
+    text-shadow: 0 2px 10px rgba(220, 20, 60, 0.2);
+}
+
+.heart-title {
+    display: inline-block;
+    animation: heartPulse 1.2s ease-in-out infinite;
+}
+
+@keyframes heartPulse {
+    0%, 100% { transform: scale(1); }
+    25% { transform: scale(1.15); }
+    50% { transform: scale(1); }
 }
 
 h2{
-    color: #6a5acd;
+    color: #dc143c;
     margin-top:25px;
     margin-bottom:15px;
+    position: relative;
+    padding-left: 30px;
+}
+
+h2::before {
+    content: '❤️';
+    position: absolute;
+    left: 0;
+    animation: heartBeat 1.5s ease-in-out infinite;
 }
 
 .quote{
@@ -107,6 +144,10 @@ h2{
     color:#555;
     line-height:1.8;
     margin-bottom:25px;
+    padding: 20px;
+    border-left: 4px solid #dc143c;
+    border-radius: 5px;
+    background: rgba(220, 20, 60, 0.05);
 }
 
 ul{
@@ -116,11 +157,22 @@ ul{
 ul li{
     margin:12px 0;
     color:#444;
+    position: relative;
+    padding-left: 15px;
+}
+
+ul li::before {
+    content: '💕';
+    position: absolute;
+    left: -15px;
 }
 
 .note{
     line-height:1.8;
     color:#444;
+    padding: 20px;
+    background: linear-gradient(135deg, rgba(220, 20, 60, 0.05), rgba(255, 192, 203, 0.05));
+    border-radius: 10px;
 }
 
 .song{
@@ -130,27 +182,28 @@ ul li{
 
 .song a{
     text-decoration:none;
-    color: #6a5acd;
+    color: white;
     font-weight:bold;
     font-size:18px;
-    padding: 10px 20px;
-    background: linear-gradient(135deg, rgba(106, 90, 205, 0.1), rgba(138, 43, 226, 0.1));
-    border-radius: 10px;
+    padding: 15px 30px;
+    background: linear-gradient(135deg, #dc143c, #ff69b4);
+    border-radius: 25px;
     display: inline-block;
     transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(220, 20, 60, 0.3);
 }
 
 .song a:hover{
-    background: linear-gradient(135deg, rgba(106, 90, 205, 0.3), rgba(138, 43, 226, 0.3));
-    transform: scale(1.05);
+    transform: scale(1.08);
+    box-shadow: 0 6px 25px rgba(220, 20, 60, 0.5);
 }
 
 .footer{
     text-align:center;
     margin-top:35px;
-    color: #6a5acd;
+    color: #dc143c;
     font-weight:bold;
-    font-size:18px;
+    font-size:20px;
     animation: heartBeat 1.5s ease-in-out infinite;
 }
 
@@ -165,15 +218,15 @@ ul li{
     bottom: 30px;
     right: 30px;
     z-index: 10;
-    background: rgba(106, 90, 205, 0.8);
+    background: linear-gradient(135deg, #dc143c, #ff69b4);
     border: none;
     color: white;
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
-    font-size: 24px;
+    font-size: 30px;
     cursor: pointer;
-    box-shadow: 0 4px 15px rgba(106, 90, 205, 0.4);
+    box-shadow: 0 4px 15px rgba(220, 20, 60, 0.4);
     transition: all 0.3s ease;
     display: flex;
     align-items: center;
@@ -181,19 +234,46 @@ ul li{
 }
 
 .music-control:hover {
-    background: rgba(106, 90, 205, 1);
-    transform: scale(1.1);
-    box-shadow: 0 6px 20px rgba(106, 90, 205, 0.6);
+    transform: scale(1.15);
+    box-shadow: 0 6px 25px rgba(220, 20, 60, 0.6);
 }
 
-.music-control.playing::after {
-    content: '♫';
-    animation: musicPlay 0.5s ease-in-out infinite;
+.music-control.playing {
+    animation: musicPulse 0.6s ease-in-out infinite;
 }
 
-@keyframes musicPlay {
-    0%, 100% { transform: scaleY(1); }
-    50% { transform: scaleY(1.3); }
+@keyframes musicPulse {
+    0%, 100% { box-shadow: 0 4px 15px rgba(220, 20, 60, 0.4); }
+    50% { box-shadow: 0 6px 25px rgba(220, 20, 60, 0.8); }
+}
+
+.volume-display {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10;
+    background: rgba(220, 20, 60, 0.8);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.8rem;
+    }
+    
+    .moon {
+        width: 80px;
+        height: 80px;
+        top: 50px;
+        right: 50px;
+    }
+    
+    .card {
+        padding: 25px;
+    }
 }
 </style>
 </head>
@@ -205,14 +285,14 @@ ul li{
 <div class="container">
 <div class="card">
 
-<h1>💖 Naz İçin</h1>
+<h1><span class="heart-title">💖</span> Naz İçin <span class="heart-title">💖</span></h1>
 
 <p class="quote">
 Bu sayfa internetteki milyonlarca sayfadan sadece biri değil.<br>
 Bu sayfa, hayatımdaki en özel kişi için hazırlandı.
 </p>
 
-<h2>🌹 Seni Neden Seviyorum?</h2>
+<h2>Seni Neden Seviyorum?</h2>
 
 <ul>
 <li>Gülüşünün günümü güzelleştirmesi.</li>
@@ -223,15 +303,15 @@ Bu sayfa, hayatımdaki en özel kişi için hazırlandı.
 <li>Sen olman.</li>
 </ul>
 
-<h2>🎵 Bizim Şarkımız</h2>
+<h2>Bizim Şarkımız</h2>
 
 <div class="song">
-<a href="https://www.youtube.com/watch?v=2Vv-BfVoq4g" target="_blank">
-🎵 Perfect — Ed Sheeran
+<a href="https://www.youtube.com/watch?v=r7l0Hc1SJgs" target="_blank">
+🎵 All of Me — John Legend
 </a>
 </div>
 
-<h2>💌 Güzelime Bir Not</h2>
+<h2>Güzelime Bir Not</h2>
 
 <p class="note">
 Bazı insanlar hayatımıza gelir ve her şeyi değiştirir.<br>
@@ -245,11 +325,11 @@ Ama şunu bilmeni istiyorum;<br><br>
 Hayatımda olduğun için mutluyum.<br>
 Gülüşünü görmek, sesini duymak ve seninle konuşmak günümün en güzel anları.<br><br>
 
-İyi ki varsın Naz. ❤️
+İyi ki varsın Naz. Seninle sonsuza kadar olmak istiyorum. ❤️
 </p>
 
 <div class="footer">
-❤️ Sonsuza kadar... ❤️
+❤️ Sonsuza kadar seninim... ❤️
 </div>
 
 </div>
@@ -257,34 +337,73 @@ Gülüşünü görmek, sesini duymak ve seninle konuşmak günümün en güzel a
 
 <!-- Müzik Kontrolü -->
 <button class="music-control" id="musicBtn" title="Müziği Aç/Kapat">🎵</button>
+<div class="volume-display" id="volumeDisplay">Ses: %50</div>
 
-<!-- Müzik Oynatıcısı (gizli) -->
-<audio id="audioPlayer" loop>
-    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-</audio>
+<!-- Müzik Oynatıcısı (YouTube Embed) -->
+<iframe id="musicPlayer" 
+    style="display:none;" 
+    width="0" 
+    height="0" 
+    src="https://www.youtube.com/embed/r7l0Hc1SJgs?autoplay=1&controls=0&modestbranding=1&rel=0&fs=0&iv_load_policy=3" 
+    frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
+</iframe>
 
 <script>
+// Düşen kalpler efekti
+function createFallingHearts() {
+    const hearts = ['❤️', '💕', '💖', '💗', '💝'];
+    setInterval(() => {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+        heart.style.left = Math.random() * 100 + '%';
+        heart.style.animationDuration = (3 + Math.random() * 2) + 's';
+        heart.style.animation = 'fall linear forwards';
+        document.body.appendChild(heart);
+        
+        setTimeout(() => heart.remove(), 5000);
+    }, 500);
+}
+
+createFallingHearts();
+
 // Müzik kontrol scripti
 const musicBtn = document.getElementById('musicBtn');
-const audioPlayer = document.getElementById('audioPlayer');
+const musicPlayer = document.getElementById('musicPlayer');
+const volumeDisplay = document.getElementById('volumeDisplay');
+let isPlaying = true;
 
-// Sayfa yüklendiğinde müzik otomatik başlasın
+// Sayfa yüklendiğinde müzik başlasın (YouTube otomatik oynatma)
 window.addEventListener('load', function() {
-    audioPlayer.volume = 0.5; // Ses seviyesi %50
-    audioPlayer.play().catch(function(error) {
-        console.log("Müzik otomatik oynamayı dene, kullanıcı etkileşimi gerekli olabilir");
-    });
     musicBtn.classList.add('playing');
 });
 
 // Butona tıklandığında müziği aç/kapat
 musicBtn.addEventListener('click', function() {
-    if (audioPlayer.paused) {
-        audioPlayer.play();
-        musicBtn.classList.add('playing');
-    } else {
-        audioPlayer.pause();
+    if (isPlaying) {
+        // Müzik kapanırken efekt
         musicBtn.classList.remove('playing');
+        isPlaying = false;
+        // YouTube'da otomatik oynatma kesme (postMessage ile)
+        musicPlayer.src = musicPlayer.src.replace('autoplay=1', 'autoplay=0');
+    } else {
+        // Müzik açılırken efekt
+        musicBtn.classList.add('playing');
+        isPlaying = true;
+        musicPlayer.src = musicPlayer.src.replace('autoplay=0', 'autoplay=1');
+    }
+});
+
+// Ses seviyesi gösterimi
+document.addEventListener('keydown', function(e) {
+    if (e.key === '+' || e.key === '=') {
+        // Ses artır
+        volumeDisplay.textContent = 'Ses: 100%';
+        setTimeout(() => {
+            volumeDisplay.textContent = 'Ses: %50';
+        }, 2000);
     }
 });
 </script>
